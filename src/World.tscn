@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/characters/Bird/Bird.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Spawner.gd" type="Script" id=2]
+[ext_resource path="res://bg2.1.png" type="Texture" id=3]
+[ext_resource path="res://src/characters/Crosshair/Crosshair.tscn" type="PackedScene" id=4]
+
+[node name="World" type="Node2D"]
+position = Vector2( -1, 4 )
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( -34, -3 )
+scale = Vector2( 0.57, 0.57 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="Bird" parent="." instance=ExtResource( 1 )]
+position = Vector2( 603, 226 )
+
+[node name="Spawner" type="Node2D" parent="."]
+position = Vector2( 1099, 294 )
+script = ExtResource( 2 )
+
+[node name="Timer" type="Timer" parent="Spawner"]
+one_shot = true
+
+[node name="Crosshair" parent="." instance=ExtResource( 4 )]
+position = Vector2( 596, 216 )
+
+[connection signal="timeout" from="Spawner/Timer" to="Spawner" method="_on_Timer_timeout"]
